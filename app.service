@@ -1,0 +1,12 @@
+[Unit]
+Description="Slack App"
+After=nginx.service
+
+[Service]
+User=ec2-user
+WorkingDirectory=/opt/slackapp/webhook/
+ExecStart=/usr/bin/python3 /opt/slackapp/webhook/app.py
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
