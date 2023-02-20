@@ -101,13 +101,13 @@ def view_submission(ack, body, client, logger):
     user_name = body["view"]["state"]["values"]["user"]["plain_text_input-action"]["value"]
     message =  body["view"]["state"]["values"]["message"]["plain_text_input-action"]["value"]
     try:
-	    conn = mysql.connector.connect(
+        conn = mysql.connector.connect(
             host="etopia-dev-cluster.cluster-c0zdw8u2xc3b.us-east-1.rds.amazonaws.com",
             user="admin",
             password="ETOPIA_DB_PASSWORD",
             database="etopia_master"
-          )
-            # Create a cursor
+        )
+        # Create a cursor
         cur = conn.cursor()
         cur.execute("SET @user_name = %s", (user_name,))
         cur.execute("SET @message = %s", (message,))
@@ -119,11 +119,11 @@ def view_submission(ack, body, client, logger):
         cur.execute("INSERT INTO message_table (user_name, message) VALUES (@user_name, @message)")
         conn.commit()
         result = client.chat_postMessage(
-                channel=channel_id,
-                text=f"Hi {user_name}! Your message '{message}' has been posted."
-            )
+            channel=channel_id,
+            text=f"Hi {user_name}! Your message '{message}' has been posted."
+        )
     except SlackApiError as e:
-            print(f"Error: {e}")
+        print(f"Error: {e}")
 
 # Listens to events from post-message callback-id
 @app.view("get-message")
@@ -131,7 +131,7 @@ def view_submission(ack, body, client, logger):
     ack()
     user_name = body["view"]["state"]["values"]["user"]["plain_text_input-action"]["value"]
     try:
-	    conn = mysql.connector.connect(
+        conn = mysql.connector.connect(
             host="etopia-dev-cluster.cluster-c0zdw8u2xc3b.us-east-1.rds.amazonaws.com",
             user="admin",
             password="ETOPIA_DB_PASSWORD",
@@ -144,11 +144,11 @@ def view_submission(ack, body, client, logger):
         cur.close()
         conn.close()
         result = client.chat_postMessage(
-              channel=channel_id,
-              text='\n'.join([f'Message {i+1}: {message}' for i, message in enumerate(messages)])
-          )
+            channel=channel_id,
+            text='\n'.join([f'Message {i+1}: {message}' for i, message in enumerate(messages)])
+        )
     except SlackApiError as e:
-            print(f"Error: {e}")
+        print(f"Error: {e}")
 
 if __name__ == "__main__":
     app.start(3000)
