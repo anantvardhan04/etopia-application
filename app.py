@@ -3,8 +3,7 @@ import mysql.connector
 from slack_sdk.errors import SlackApiError
 from slack_bolt import App
 
-logging.basicConfig(level=logging.INFO)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(filename='/var/log/slackapp/app.log',level=logging.INFO)
 
 app = App(
     token="SLACK_BOT_TOKEN",

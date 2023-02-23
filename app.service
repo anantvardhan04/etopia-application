@@ -3,7 +3,7 @@ Description="Slack App"
 After=nginx.service
 
 [Service]
-User=ec2-user
+User=root
 WorkingDirectory=/opt/slackapp/webhook/
 ExecStart=/usr/bin/python3 /opt/slackapp/webhook/app.py
 Restart=on-failure
