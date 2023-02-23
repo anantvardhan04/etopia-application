@@ -1,15 +1,10 @@
 import os, logging, requests, re
-import json_log_formatter
 import mysql.connector
 from slack_sdk.errors import SlackApiError
 from slack_bolt import App
 
-formatter = json_log_formatter.JSONFormatter()
-json_handler = logging.FileHandler(filename='/var/log/slackapp/system.log')
-json_handler.setFormatter(formatter)
-logger = logging.getLogger('my_json')
-logger.addHandler(json_handler)
-logger.setLevel(logging.INFO)
+logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
 app = App(
     token="SLACK_BOT_TOKEN",
