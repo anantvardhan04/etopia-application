@@ -1,3 +1,4 @@
 slack_bolt
 requests
 mysql.connector
+json_log_formatter
